@@ -18,6 +18,17 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_pushButtonOpenImageFolder_clicked();
+
+    void on_listWidgetImageFiles_currentRowChanged(int currentRow);
+
+    void on_pushButtonProcessAllFiles_clicked();
+
+    void on_checkBoxShowInput_toggled(bool checked);
+
+    void on_doubleSpinBoxImageScale_valueChanged(double arg1);
+
 private:
     Ui::MainWindow *ui;
 

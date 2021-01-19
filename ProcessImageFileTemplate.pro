@@ -27,7 +27,7 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp\
-        myimagewidget.cpp \
+        ../../ProjectsLib/LibMarcin/myimagewidget.cpp \
         ../../ProjectsLib/LibMarcin/NormalizationLib.cpp \
         ../../ProjectsLib/LibMarcin/DispLib.cpp \
         ../../ProjectsLib/LibMarcin/StringFcLib.cpp \
@@ -37,7 +37,7 @@ SOURCES += \
 
 HEADERS += \
         mainwindow.h\
-        myimagewidget.h \
+        ../../ProjectsLib/LibMarcin/myimagewidget.h \
         ../../ProjectsLib/LibMarcin/NormalizationLib.h \
         ../../ProjectsLib/LibMarcin/DispLib.h \
         ../../ProjectsLib/LibMarcin/StringFcLib.h \

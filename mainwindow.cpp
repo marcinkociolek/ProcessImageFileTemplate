@@ -76,7 +76,7 @@ void MainWindow::OpenImageFolder()
         }
         ui->listWidgetImageFiles->addItem(PathLocal.filename().string().c_str());
     }
-    if(ui->listWidgetImageFiles->count())
+    if(ui->listWidgetImageFiles->count() && ui->checkBoxAutoProcessFirstFile->checkState())
         ui->listWidgetImageFiles->setCurrentRow(0);
 }
 //------------------------------------------------------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ void MainWindow::ReadImage()
 
     if(ui->checkBoxShowMatInfo->checkState())
         ui->textEditOut->append(QString::fromStdString(MatPropetiesAsText(ImIn)));
-    ProcessImages();
+    //ProcessImages();
 }
 //------------------------------------------------------------------------------------------------------------------------------
 
@@ -159,3 +159,84 @@ void MainWindow::ProcessImages()
 //          Slots
 //------------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------
+
+void MainWindow::on_pushButtonOpenImageFolder_clicked()
+{
+    QFileDialog dialog(this, "Open Folder");
+    //dialog.setFileMode(QFileDialog::Directory);
+    //dialog.setDirectory(ui->lineEditImageFolder->text());
+    path ImageFolder;
+    if(dialog.exec())
+    {
+        ImageFolder = dialog.directory().path().toStdWString();
+    }
+    else
+        return;
+    if (!exists(ImageFolder))
+    {
+        ui->textEditOut->append(" Image folder : " + QString::fromStdWString(ImageFolder.wstring())+ " not exists ");
+        return;
+    }
+    if (!is_directory(ImageFolder))
+    {
+        ui->textEditOut->append(" Image folder : " + QString::fromStdWString(ImageFolder.wstring())+ " This is not a directory path ");
+        return;
+    }
+    ui->lineEditImageFolder->setText(QString::fromStdWString(ImageFolder.wstring()));
+
+    OpenImageFolder();
+}
+
+void MainWindow::on_listWidgetImageFiles_currentRowChanged(int currentRow)
+{
+    FileToOpen = ui->lineEditImageFolder->text().toStdWString();
+    FileToOpen.append(ui->listWidgetImageFiles->item(currentRow)->text().toStdWString());
+    if(!exists(FileToOpen))
+    {
+        ui->textEditOut->append(" file : " + QString::fromStdWString(FileToOpen.wstring())+ " not exists ");
+        return;
+    }
+
+    ReadImage();
+    ProcessImages();
+    ShowImages();
+}
+
+void MainWindow::on_pushButtonProcessAllFiles_clicked()
+{
+    int filesCount = ui->listWidgetImageFiles->count();
+    int firstFile = 0;
+    ui->textEditOut->clear();
+    //time_t begin,end;
+    //time (&begin);
+    for(int fileNr = firstFile; fileNr< filesCount; fileNr++)
+    {
+        FileToOpen = ui->lineEditImageFolder->text().toStdWString();
+        FileToOpen.append(ui->listWidgetImageFiles->item(fileNr)->text().toStdWString());
+        if(!exists(FileToOpen))
+        {
+            ui->textEditOut->append(" file : " + QString::fromStdWString(FileToOpen.wstring())+ " not exists ");
+            return;
+        }
+
+        ReadImage();
+        ProcessImages();
+        ShowImages();
+        waitKey(200);
+
+    }
+    //time (&end);
+    //double difference = difftime (end,begin);
+    //QString TimeStringQ = " calcTime = " + QString::number(difference) + " s" + "\n";
+    //ui->textEditOut->append(TimeStringQ);
+}
+
+void MainWindow::on_checkBoxShowInput_toggled(bool checked)
+{
+    ShowImages();
+}
+
+void MainWindow::on_doubleSpinBoxImageScale_valueChanged(double arg1)
+{
+    ShowImages();
+}
