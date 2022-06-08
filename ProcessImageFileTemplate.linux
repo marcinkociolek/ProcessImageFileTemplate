@@ -33,7 +33,6 @@ SOURCES += \
         ../../ProjectsLib/LibMarcin/StringFcLib.cpp \
         ../../ProjectsLib/LibMarcin/histograms.cpp \
         ../../ProjectsLib/LibMarcin/RegionU16Lib.cpp 
-        
 
 HEADERS += \
         mainwindow.h\
@@ -47,31 +46,78 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
-win32: INCLUDEPATH += C:\opencv452cudaWorld\include\
-win32: INCLUDEPATH += C:\boost1_75\
-win32: INCLUDEPATH += C:\LibTiff\
-win32: INCLUDEPATH += ..\..\ProjectsLib\LibMarcin\
-win32: INCLUDEPATH += ../SkopiaSegment/
+#INCLUDEPATH += /usr/include/opencv4/
+INCLUDEPATH += /usr/include/boost/
+INCLUDEPATH += ../../ProjectsLib/LibMarcin/
+INCLUDEPATH += ../SkopiaSegment/
+INCLUDEPATH +=/home/marcin/Documents/ProjectsForeign/usr/opencv541CudaDynamicGTK2/include/opencv4/
+
+
+LIBS += -ltiff
+LIBS += -lboost_filesystem
+LIBS += -lboost_regex
+
+LIBS += -L/home/marcin/Documents/ProjectsForeign/usr/opencv541CudaDynamicGTK2/lib/
+
+LIBS += -lopencv_highgui
+LIBS += -lopencv_core
+LIBS += -lopencv_imgproc
+
+LIBS += -lopencv_features2d
+LIBS += -lopencv_imgcodecs
+
+LIBS += -lopencv_dnn
+
+#include(../Pri_itk_windows.pri)
+
+#win32: INCLUDEPATH += C:\opencv452cudaWorld\include\
+#win32: INCLUDEPATH += C:\boost1_75\
+#win32: INCLUDEPATH += C:\LibTiff\
+#win32: INCLUDEPATH += ..\..\ProjectsLib\LibMarcin\
+#win32: INCLUDEPATH += ../../ProjectsLibForein/LibPMS/
+#win32: INCLUDEPATH += ../SkopiaSegment/
+
+
+#INCLUDEPATH += C:/ITK2/include/ITK-5.0/
 
 # this is for debug
-#win32: LIBS += -LC:\opencv452cudaWorld\x64\vc16\lib
+#win32: LIBS += -LC:/opencv/build/x64/vc15/lib/
+#win32: LIBS += -lopencv_world3413d
+
+#win32: LIBS += -LC:/opencv4/build/x64/vc15/lib/
+#win32: LIBS += -lopencv_world451d
+
+#win32: LIBS += -LC:/boost_1_66_0/stage/x64/lib/
+#win32:  LIBS += -lboost_filesystem-vc141-mt-gd-x64-1_66
+#win32:  LIBS += -lboost_regex-vc141-mt-gd-x64-1_66
+
+#win32:  LIBS += -lboost_random-vc141-mt-gd-x64-1_66
+
+# this is for debug
+#win32: LIBS += -LC:/opencv452cudaWorld/x64/vc16/lib/
+#win32: LIBS += -lopencv_world452d
+
+#win32: LIBS += -LC:\boost_1_71_0\stage\lib
+#win32: LIBS += -lboost_filesystem-vc142-mt-gd-x64-1_71
+#win32: LIBS += -lboost_regex-vc142-mt-gd-x64-1_71
+
+
+# this is for release
+#win32: LIBS += -LC:/opencv452cudaWorld/x64/vc16/lib/
 #win32: LIBS += -lopencv_world452
 
-#win32: LIBS += -LC:\boost1_75\stage\x64\lib
+#win32: LIBS += -LC:/boost1_75/stage/x64/lib/
 #win32: LIBS += -lboost_filesystem-vc142-mt-x64-1_75
 #win32: LIBS += -lboost_regex-vc142-mt-x64-1_75
 
-# this is for release
-win32: LIBS += -LC:\opencv452cudaWorld\x64\vc16\lib
-win32: LIBS += -lopencv_world452
 
-win32: LIBS += -LC:\boost1_75\stage\x64\lib/
-win32: LIBS += -lboost_filesystem-vc142-mt-x64-1_75
-win32: LIBS += -lboost_regex-vc142-mt-x64-1_75
+#this is common
+#win32: LIBS += -LC:/LibTiff/
+#win32: LIBS += -llibtiff_i
 
-win32: LIBS += -LC:/LibTiff/
-win32: LIBS += -llibtiff_i
 
+
+#win32: LIBS += -LC:\ITK2\lib/
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
